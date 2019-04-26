@@ -1,0 +1,62 @@
+[
+    {
+        "animal": "rat",
+        "characteristics": "Passionate lovers; their feelings are true.",
+        "position": 0
+    },
+    {
+        "animal": "ox",
+        "characteristics": "Not the most romantic, but very faithful.",
+        "position": 1
+    },
+    {
+        "animal": "tiger",
+        "characteristics": "They are flirts, but committed to their partners. Parenting is a privilege.",
+        "position": 2
+    },
+    {
+        "animal": "rabbit",
+        "characteristics": "They make tender partners, and seek out a match that offers the same; as well as security.",
+        "position": 3
+    },
+    {
+        "animal": "dragon",
+        "characteristics": "Dedicated workers, and great companions... In for the long haul!!!",
+        "position": 4
+    },
+    {
+        "animal": "snake",
+        "characteristics": "They are elegant and refined, passionate, sleek and sexy; but can be jealous and possessive if their rock is overturned on too many occasions.",
+        "position": 5
+    },
+    {
+        "animal": "horse",
+        "characteristics": "When they find a partner they are dedicated, and at times can loose their heads in the way of romance; and often make mistakes while finding the right partner.",
+        "position": 6
+    },
+    {
+        "animal": "sheep",
+        "characteristics": "Dedicated to marriage and a friend!!",
+        "position": 7
+    },
+    {
+        "animal": "monkey",
+        "characteristics": "Not the nine to five type person though; the Monkey needs freedom and a partner that keeps them stimulated.",
+        "position": 8
+    },
+    {
+        "animal": "rooster",
+        "characteristics": "They usually attract a wide variety of mates before settling down with just one; but once they find that perfect match they are dedicated to their partners and make great parents.",
+        "position": 9
+    },
+    {
+        "animal": "dog",
+        "characteristics": "They are dedicated to companionship and and are faithful for life.",
+        "position": 10
+    },
+    {
+        "animal": "pig",
+        "characteristics": "Their day is their play pen and they enjoy the moment!!",
+        "position": 11
+    }
+]
