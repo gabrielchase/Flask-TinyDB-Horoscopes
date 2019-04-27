@@ -17,15 +17,21 @@ def insert_animal(name, characteristics, position):
     return animal
 
 def find_animal(name):
+    # print('in find_animal: ', name, type(name))
     animal_query = Query()
-    result = cz_table.search(animal_query.animal.matches(name))
+    # print('animal_query: ', animal_query)
+    # print('query: ', animal_query.animal == name))
+    # print(cz_table.all())
+    result = cz_table.search(animal_query.animal == name)
+    print('result: ', result)
     if (len(result) > 0):
         return result[0]
     return None
 
 def update_animal(name, **kwargs):
     animal_query = Query()
-    result = cz_table.search(animal_query.animal.matches(name))
+    result = cz_table.search(animal_query.animal == name)
+    print('result: ', result)
 
     # update the first entry
     if len(result) > 0:
@@ -45,7 +51,7 @@ def update_animal(name, **kwargs):
 
 def delete_animal(name):
     animal_query = Query()
-    result = cz_table.search(animal_query.animal.matches(name))
+    result = cz_table.search(animal_query.animal ==name)
 
     # delete the first entry
     if len(result) > 0:
@@ -89,14 +95,14 @@ def insert_symbol(name, start, end, reading):
 
 def find_symbol(name):
     symbol_query = Query()
-    result = wz_table.search(symbol_query.symbol.matches(name))
+    result = wz_table.search(symbol_query.symbol == name)
     if (len(result) > 0):
         return result[0]
     return None
 
 def update_symbol(name, **kwargs):
     symbol_query = Query()
-    result = wz_table.search(symbol_query.symbol.matches(name))
+    result = wz_table.search(symbol_query.symbol == name)
 
     # update the first entry
     if len(result) > 0:
@@ -118,7 +124,7 @@ def update_symbol(name, **kwargs):
 
 def delete_symbol(name):
     query = Query()
-    result = wz_table.search(query.symbol.matches(name))
+    result = wz_table.search(query.symbol == name)
 
     # delete the first entry
     if len(result) > 0:

@@ -12,6 +12,7 @@ parser = reqparse.RequestParser()
 parser.add_argument('animal', type=str, help='Name of animal to be inserted/updated.')
 parser.add_argument('characteristics', type=str, help='Characteristics of animal to be inserted.')
 parser.add_argument('position', type=int, help='The position of the animal in the calendar.')
+
 parser.add_argument('symbol', type=str)
 parser.add_argument('start', type=dict)
 parser.add_argument('end', type=dict)
@@ -22,8 +23,11 @@ parser.add_argument('reading', type=str)
 class ChineseZodiac(Resource):
     # get  animal
     def get(self, name):
+        print('name: ', name, type(name))
         animal = database.find_animal(name)
+        print('animal: ', animal)
         if animal is not None:
+            print('2animal: ', animal)
             return animal, 200
         abort(404, message="Animal {} doesn't exist!".format(name))
 
@@ -68,7 +72,6 @@ api.add_resource(ChineseZodiac, '/zodiac/chinese/<string:name>')
 
 
 class WesternZodiac(Resource):
-    # get  animal
     def get(self, name):
         symbol = database.find_symbol(name)
         if symbol is not None:
@@ -111,21 +114,60 @@ class WesternZodiacList(Resource):
 class WesternZodiacExtended(Resource):
     def get(self, year, month, day):
         symbols = database.get_symbols()
+        chinese_zodiac = get_chinese_zodiac_year(year)
+        print('chinese_zodiac: ', chinese_zodiac)
+        western_zodiac = {}
+        context = {}
+        print('symbols: ', symbols)
 
         for idx, s in enumerate(symbols):
+            print('s: ', s)
             start = s.get("start")
+            print('start: ', start)
             start_month = start.get("month")
             start_day = start.get("day")
             
             if (start_month == month and day <= start_day):
-                return symbols[(idx-1) % 12].get("symbol"), 200
+                western_zodiac = symbols[(idx-1) % 12]
             elif (start_month == month and day >= start_day):
-                return s.get("symbol"), 200
+                print('RETURNING', s)
+                western_zodiac =  s
+        
+        print('western_zodiac: ', western_zodiac)
+        context = {
+            'chinese_zodiac': chinese_zodiac,
+            'western_zodiac': western_zodiac
+        }
+        print(context)
 
+        return context, 200
+
+def get_chinese_zodiac_year(year): 
+    zodiac_array = ['dragon', 'snake', 'horse', 'sheep', 'monkey', 'rooster', 'dog', 'pig', 'rat', 'ox', 'tiger', 'hare']
+    # zodiac_dict = {
+    #     '0': 'dragon',
+    #     '1': 'snake',
+    #     '2': 'horse',
+    #     '3': 'sheep',
+    #     '4': 'monkey',
+    #     '5': 'rooster',
+    #     '6': 'dog',
+    #     7: 'pig',
+    #     8: 'rat',
+    #     9: 'ox',
+    #     10: 'tiger',
+    #     11: 'hare'
+    # }
+    n = (year - 2000) % 12
+    print('n: ', n)
+    name = zodiac_array[n]
+    print('name: ', name)
+    return database.find_animal(name) 
+    
 
 api.add_resource(WesternZodiacList, '/zodiac/western')
 api.add_resource(WesternZodiac, '/zodiac/western/<string:name>')
-api.add_resource(WesternZodiacExtended, '/zodiac/western/<string:year>/<string:month>/<int:day>')
+api.add_resource(WesternZodiacExtended, '/zodiac/reading/<int:year>/<string:month>/<int:day>')
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8000)
+    app.run(debug=True, host='0.0.0.0', port=80)
